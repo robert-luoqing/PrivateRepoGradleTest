@@ -1,0 +1,45 @@
+buildscript {
+    ext.kotlin_version = '1.3.50'
+    repositories {
+        google()
+        mavenCentral()
+        // Added Repo Address
+        maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+
+        // Added Repo Address
+        maven {url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        maven {url 'http://maven.aliyun.com/nexus/content/repositories/releases/'}
+        maven{
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username '609cc5623a10edbf36da9615'
+                password 'EbkbzTNHRJ=P'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2102846-release-8EVsoM/'
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
